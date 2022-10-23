@@ -98,7 +98,11 @@ main() {
     DEST="$USER_DEST"
 
     info "Adding $DEST to fpath..."
-    echo 'fpath=($fpath "'"$DEST"'")' >> "$ZSHRC"
+    if [[ "$fpath" != *"$DEST"* ]]; then
+      echo 'fpath=($fpath "'"$DEST"'")' >> "$ZSHRC"
+    else
+      info "fpath already contains $DEST"
+    fi
 
     info "Trying to symlink $SOURCE to $DEST"
     info "Trying to symlink $ASYNC_SOURCE to $DEST"
